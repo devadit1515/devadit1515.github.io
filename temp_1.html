@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SowSmart OS - Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 280px;
+            background: #2c5530;
+            color: white;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.08);
+        }
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        .logo i {
+            color: #4CAF50;
+            font-size: 28px;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin: 0 20px 20px;
+        }
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .user-info h4 {
+            font-size: 14px;
+            color: white;
+            margin-bottom: 2px;
+        }
+        .user-info p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .nav-menu {
+            list-style: none;
+            padding: 0 20px;
+        }
+        .nav-item {
+            margin-bottom: 8px;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+        .nav-link.active {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+        .header-nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .header-nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .header-nav a:hover {
+            background: rgba(76, 175, 80, 0.1);
+            color: #2c5530;
+        }
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .notification-btn {
+            position: relative;
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #555;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .notification-btn:hover {
+            background: rgba(76, 175, 80, 0.1);
+            color: #2c5530;
+        }
+        .notification-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logout-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .logout-btn:hover {
+            background: #ff3742;
+        }
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px 28px 28px 28px;
+            box-shadow: 0 8px 32px rgba(44, 85, 48, 0.08);
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-width: 0;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 18px;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #234b2a;
+        }
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+        }
+        .icon-crop { background: #4CAF50; }
+        .icon-dashboard { background: #667eea; }
+        .icon-disease { background: #ee5a52; }
+        .icon-yield { background: #ff9ff3; }
+        .icon-market { background: #0abde3; }
+        .icon-analytics { background: #8854d0; }
+        .icon-alert { background: #ff4757; }
+        .card-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #234b2a;
+            margin-bottom: 8px;
+        }
+        .card-description {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        @media (max-width: 1200px) {
+            .dashboard-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 900px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <span>SowSmart OS</span>
+                </div>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar" id="user-avatar">J</div>
+                <div class="user-info">
+                    <h4 id="user-name">John Doe</h4>
+                    <p>Agri-Tech Expert</p>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="/" class="nav-link active"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/crop-planner" class="nav-link"><i class="fas fa-calendar-alt"></i>Crop Planner</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#disease-detection" class="nav-link"><i class="fas fa-bug"></i>Disease Detection</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#yield-forecast" class="nav-link"><i class="fas fa-chart-line"></i>Yield Forecast</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#market-prices" class="nav-link"><i class="fas fa-dollar-sign"></i>Market Prices</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#marketplace" class="nav-link"><i class="fas fa-store"></i>Marketplace</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#analytics" class="nav-link"><i class="fas fa-chart-bar"></i>Analytics</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#settings" class="nav-link"><i class="fas fa-cog"></i>Settings</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <nav class="header-nav">
+                    <a href="#" class="active">Dashboard</a>
+                    <a href="#">AI Tools</a>
+                    <a href="#">Marketplace</a>
+                    <a href="#">Analytics</a>
+                    <a href="#">Settings</a>
+                </nav>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        Logout
+                    </button>
+                </div>
+            </header>
+            <!-- Content Area -->
+            <main class="content">
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Total Mango Types</h3>
+                            <div class="card-icon icon-crop">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                        </div>
+                        <div class="card-value" id="totalMangoTypesValue">5</div>
+                        <div class="card-description">Active mango types across all fields</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Soil Health</h3>
+                            <div class="card-icon icon-dashboard">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">87%</div>
+                        <div class="card-description">Average soil health score across fields</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Disease Alerts</h3>
+                            <div class="card-icon icon-alert">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">2</div>
+                        <div class="card-description">Active disease alerts requiring attention</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Yield Forecast</h3>
+                            <div class="card-icon icon-yield">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">+12%</div>
+                        <div class="card-description">Expected yield increase this season</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Market Prices</h3>
+                            <div class="card-icon icon-market">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">$2.45</div>
+                        <div class="card-description">Average price per bushel this week</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">AI Insights</h3>
+                            <div class="card-icon icon-analytics">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">15</div>
+                        <div class="card-description">AI-generated recommendations today</div>
+                    </div>
+                </div>
+                <!-- Crop Planner Section Start -->
+                <div class="card" style="margin-top:40px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Crop Planner</h3>
+                        <div class="card-icon icon-crop">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        For AI-powered mango variety recommendations, please use the <b>Crop Planner</b> page.<br>
+                        <a href="/crop-planner" class="btn-anim bg-green-600 text-white font-semibold py-2 px-4 rounded mt-3 inline-block" style="text-decoration:none;">Go to Crop Planner</a>
+                    </div>
+                </div>
+                <!-- Crop Planner Section End -->
+            </main>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/4e8e2e6c8b.js" crossorigin="anonymous"></script>
+    <script>
+    function logout() {
+        if (confirm('Are you sure you want to logout?')) {
+            window.location.href = 'website.html';
+        }
+    }
+    </script>
+</body>
+</html>
