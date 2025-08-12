@@ -170,7 +170,45 @@ def setup_ui_theme():
     }
     ::-webkit-scrollbar-thumb:hover {
         background: #42a5f5;
-}
+    }
+    
+    /* Fix white text on light background issues */
+    .stTextInput > label, .stSelectbox > label, .stSlider > label, .stNumberInput > label,
+    .stTextInput > div > div > label, .stSelectbox > div > div > label, .stSlider > div > div > label, .stNumberInput > div > div > label,
+    .stTextInput > div > label, .stSelectbox > div > label, .stSlider > div > label, .stNumberInput > div > label {
+        color: #1a202c !important;
+        font-weight: 600 !important;
+        text-shadow: none !important;
+    }
+    
+    /* Fix input field text colors */
+    .stTextInput input, .stSelectbox select, .stNumberInput input {
+        color: #1a202c !important;
+        background-color: #ffffff !important;
+    }
+    
+    /* Fix slider labels and values */
+    .stSlider > div > div > div > div > div > div > div {
+        color: #1a202c !important;
+    }
+    
+    /* Fix selectbox options */
+    .stSelectbox > div > div > div > div > div > div > div {
+        color: #1a202c !important;
+    }
+    
+    /* Fix any remaining white text on light backgrounds */
+    .stTextInput, .stSelectbox, .stSlider, .stNumberInput {
+        color: #1a202c !important;
+    }
+    
+    /* Ensure form containers have proper contrast */
+    .stTextInput > div, .stSelectbox > div, .stSlider > div, .stNumberInput > div {
+        background-color: rgba(255, 255, 255, 0.9) !important;
+        border-radius: 8px !important;
+        padding: 8px !important;
+        border: 1px solid #e2e8f0 !important;
+    }
     </style>
     """, unsafe_allow_html=True)
     
@@ -180,6 +218,191 @@ def setup_ui_theme():
     .stApp {
         background: linear-gradient(135deg, #e3f0ff 0%, #e0f7fa 50%, #f8fbff 100%) !important;
         min-height: 100vh;
+    }
+    
+    /* Additional fixes for all form elements and text */
+    .stTextInput, .stSelectbox, .stSlider, .stNumberInput, .stCheckbox, .stRadio, .stTextArea {
+        color: #1a202c !important;
+    }
+    
+    /* Fix for any labels that might still be white */
+    label, .stTextInput label, .stSelectbox label, .stSlider label, .stNumberInput label {
+        color: #1a202c !important;
+        font-weight: 600 !important;
+        text-shadow: none !important;
+    }
+    
+    /* Fix for input placeholders */
+    input::placeholder, textarea::placeholder {
+        color: #64748b !important;
+    }
+    
+    /* Fix for any remaining white text */
+    .stTextInput *, .stSelectbox *, .stSlider *, .stNumberInput * {
+        color: #1a202c !important;
+    }
+    
+    /* Ensure proper contrast for all interactive elements */
+    .stButton > button, .stDownloadButton > button {
+        color: #ffffff !important;
+        background: linear-gradient(90deg, #2196f3 0%, #6dd5ed 100%) !important;
+    }
+    
+    /* Fix black boxes - make dropdowns and select boxes white with black text */
+    .stSelectbox > div > div > div > div > div > div,
+    .stSelectbox > div > div > div > div > div > div > div,
+    .stSelectbox > div > div > div > div > div > div > div > div {
+        background-color: #ffffff !important;
+        color: #1a202c !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+    
+    /* Fix the dropdown arrow and container */
+    .stSelectbox > div > div > div > div > div > div > div > div > div {
+        background-color: #ffffff !important;
+        color: #1a202c !important;
+    }
+    
+    /* Fix number input controls (plus/minus buttons) */
+    .stNumberInput > div > div > div > div > div > div > div > div > button {
+        background-color: #ffffff !important;
+        color: #1a202c !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 4px !important;
+    }
+    
+    /* Fix number input controls hover state */
+    .stNumberInput > div > div > div > div > div > div > div > div > button:hover {
+        background-color: #f8fafc !important;
+        color: #1a202c !important;
+    }
+    
+    /* Fix any remaining dark backgrounds in form elements */
+    .stSelectbox > div, .stNumberInput > div, .stSlider > div {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+    
+    /* Ensure dropdown options are white with black text */
+    .stSelectbox > div > div > div > div > div > div > div > div > div > div {
+        background-color: #ffffff !important;
+        color: #1a202c !important;
+    }
+    
+    /* Target the specific black box containers */
+    .stSelectbox > div > div > div > div > div > div > div > div > div,
+    .stSelectbox > div > div > div > div > div > div > div > div > div > div,
+    .stSelectbox > div > div > div > div > div > div > div > div > div > div > div {
+        background-color: #ffffff !important;
+        color: #1a202c !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+    
+    /* Fix the dropdown trigger button specifically */
+    .stSelectbox > div > div > div > div > div > div > div > div > div > div > div > div {
+        background-color: #ffffff !important;
+        color: #1a202c !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+    
+    /* Fix the plus/minus controls specifically for number inputs */
+    .stNumberInput > div > div > div > div > div > div > div > div > div > div > button,
+    .stNumberInput > div > div > div > div > div > div > div > div > div > div > div > button {
+        background-color: #ffffff !important;
+        color: #1a202c !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 4px !important;
+        min-width: 24px !important;
+        height: 24px !important;
+    }
+    
+    /* Force all form elements to have white backgrounds */
+    .stSelectbox *, .stNumberInput *, .stSlider * {
+        background-color: #ffffff !important;
+        color: #1a202c !important;
+    }
+    
+    /* Override any Streamlit default dark styling */
+    [data-testid="stSelectbox"] > div,
+    [data-testid="stNumberInput"] > div,
+    [data-testid="stSlider"] > div {
+        background-color: #ffffff !important;
+        color: #1a202c !important;
+    }
+    
+    /* Fix ALL white text on light blue backgrounds */
+    .stMarkdown, .stMarkdown *, .stText, .stText * {
+        color: #1a202c !important;
+    }
+    
+    /* Fix any text containers with light backgrounds */
+    div[style*="background"], div[style*="background-color"] {
+        color: #1a202c !important;
+    }
+    
+    /* Fix specific text elements that might be white */
+    p, span, div, h1, h2, h3, h4, h5, h6, label, strong, b, em, i {
+        color: #1a202c !important;
+    }
+    
+    /* Fix any Streamlit containers with light backgrounds */
+    .stContainer, .stContainer *,
+    .stExpander, .stExpander *,
+    .stTabs, .stTabs * {
+        color: #1a202c !important;
+    }
+    
+    /* Fix any remaining white text in the entire app */
+    * {
+        color: #1a202c !important;
+    }
+    
+    /* Exception for buttons and specific elements that should remain white */
+    .stButton > button, .stDownloadButton > button,
+    .stButton > button *, .stDownloadButton > button *,
+    button, button * {
+        color: #ffffff !important;
+    }
+    
+    /* Fix any info boxes or alert messages */
+    .stAlert, .stAlert *, .stSuccess, .stSuccess *,
+    .stWarning, .stWarning *, .stError, .stError * {
+        color: #1a202c !important;
+    }
+    
+    /* Fix any custom styled divs */
+    div[class*="info"], div[class*="message"], div[class*="alert"] {
+        color: #1a202c !important;
+    }
+    
+    /* Fix specific message boxes and info containers */
+    div[style*="background: linear-gradient"], div[style*="background-color: #e3f0ff"],
+    div[style*="background-color: #e0f7fa"], div[style*="background-color: #f8fbff"] {
+        color: #1a202c !important;
+    }
+    
+    /* Fix any divs with light blue backgrounds specifically */
+    div[style*="background: #e3f0ff"], div[style*="background: #e0f7fa"],
+    div[style*="background: #f8fbff"], div[style*="background: #bbdefb"] {
+        color: #1a202c !important;
+    }
+    
+    /* Target any remaining white text in containers */
+    .stMarkdown > div, .stMarkdown > div > div,
+    .stMarkdown > div > div > div, .stMarkdown > div > div > div > div {
+        color: #1a202c !important;
+    }
+    
+    /* Fix any text that might be in styled containers */
+    div[class*="container"], div[class*="box"], div[class*="card"] {
+        color: #1a202c !important;
+    }
+    
+    /* Ensure all text elements have proper contrast */
+    .stMarkdown p, .stMarkdown span, .stMarkdown div,
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
+    .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {
+        color: #1a202c !important;
+        text-shadow: none !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -331,7 +554,7 @@ def show_dashboard():
     # --- Hero Section (moved higher, no box, plant emoji, left-aligned, updated name) ---
     st.markdown("""
     <div style='margin-bottom: 24px; text-align: left;'>
-        <span style='font-size:3.2rem; font-weight:900; color:#1976d2; margin-right: 18px; letter-spacing:1px; vertical-align: middle;'>🌱 Soil Smart</span>
+        <span style='font-size:3.2rem; font-weight:900; color:#1976d2; margin-right: 18px; letter-spacing:1px; vertical-align: middle;'>🌱 Sow Smart</span>
         <span style='font-size:1.5rem; color:#27ae60; font-weight:700; margin-left: 8px; vertical-align: middle;'>Grow Smarter, Farm Better</span>
         <div style='margin-top: 8px; color: #1976d2; font-size: 1.18rem; font-weight:500;'>
             Welcome to your AI-powered mango farm dashboard. Monitor, plan, and optimize every aspect of your farm with beautiful analytics and actionable insights.
